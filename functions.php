@@ -25,3 +25,32 @@ function build_table_html ($tableArray) {
 	$table_html .= '</tbody></table>';//'приветмедвед <br>';
 	return $table_html;
 }
+
+function add_form () {
+	$link = mysqli_connect(SQL_HOST, DB_USER, DB_PASSW);
+	$data = mysqli_query($link, "select * from `shop`.`category`");
+	$categoryArray = mysqli_fetch_all($data, MYSQL_ASSOC);
+	var_dump($categoryArray);
+	?>
+	<div class='form'>
+		<form action="ajax_update.php" method="post">
+			<fieldset>
+				<label>id<br><input type="number" name="id"></label><br>
+				<label>Название товара<br><input type="text" name="id"></label><br>
+				<label>Описание товара<br><textarea></textarea></label><br>
+				<label>Категория<br>
+					<select name="category">
+						    <?php 
+						    foreach ($categoryArray as  $row) {
+						    	echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+						    	}
+						    ?>
+					</select>
+				</label>
+
+
+			</fieldset>
+		</form>
+	</div>
+<?php
+}

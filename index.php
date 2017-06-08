@@ -24,6 +24,7 @@ $table_html = build_table_html ($tableArray);
 
 echo $table_html;
 
+add_form ();
 /*
 $route = "list";
 if (isset($_GET['photo'])) {
