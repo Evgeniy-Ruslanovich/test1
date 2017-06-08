@@ -26,6 +26,8 @@ function build_table_html ($tableArray) {
 	return $table_html;
 }
 
+/*функция генерирует HTML-код формы Вызов функции вставляет 
+Также происходит обрадение к базе данных, чтобы получить список катеорий товаров*/
 function add_form () {
 	$link = mysqli_connect(SQL_HOST, DB_USER, DB_PASSW);
 	$data = mysqli_query($link, "select * from `shop`.`category`");
@@ -36,8 +38,8 @@ function add_form () {
 		<form action="ajax_update.php" method="post">
 			<fieldset>
 				<label>id<br><input type="number" name="id"></label><br>
-				<label>Название товара<br><input type="text" name="id"></label><br>
-				<label>Описание товара<br><textarea></textarea></label><br>
+				<label>Название товара<br><input type="text" name="name"></label><br>
+				<label>Описание товара<br><textarea name="description"></textarea></label><br>
 				<label>Категория<br>
 					<select name="category">
 						    <?php 
@@ -46,8 +48,8 @@ function add_form () {
 						    	}
 						    ?>
 					</select>
-				</label>
-
+				</label><br><br>
+				<input type="submit" value="OK">
 
 			</fieldset>
 		</form>
