@@ -15,7 +15,12 @@ require_once('config.php');
 	.  $_POST['cost'] . " WHERE `products`.`id` = " . $_POST['id'];
 	*/
 	//$sql = "UPDATE `shop`.`products` SET `name` = 'Матрешка 99 вложений' WHERE `products`.`id` = 3;";
-	$sql = "UPDATE `shop`.`products` SET `name` = '" . $_POST["name"] . "' , `description` = '" . $_POST['description'] . "' WHERE `products`.`id` = 3;";
+	$sql = "UPDATE `shop`.`products` SET 
+	`name` = '" . $_POST["name"] . "' , 
+	`description` = '" . $_POST['description'] . "' , 
+	`category_id` = '" . $_POST['category_id'] . "' , 
+	`cost` = '" . $_POST['cost'] . "' 
+	WHERE `products`.`id` = " . $_POST['id'];
 	echo $sql  . '<br>';
 	$query = mysqli_query($link, $sql);
 
