@@ -125,6 +125,7 @@ label {
 	/*margin-top: 20px;*/
 }
 .green:hover {
+	border:none;
 	box-shadow: 0 0 10px #333;
 	position: relative;
 	top: -2px;

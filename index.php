@@ -27,7 +27,7 @@ $table_html = build_table_html ($tableArray);
 <!doctype html>
 <html>
 	<head>
-		<title><?= $title ?></title>
+		<title>Список товаров</title>
 		<meta charset="UTF8">
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 		<link rel="stylesheet" type="text/css" href="css/style1.css">

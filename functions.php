@@ -38,8 +38,8 @@ function add_form () {
 		<div id="closebutton">X</div>
 		<form action="ajax_update.php" method="post">
 			<fieldset>
-				<label>id<br><input type="number" name="id"></label><br>
-				<label>Название товара<br><input type="text" name="name" value="matrioshka"></label><br>
+				<label>id<br><input type="number" name="id" required></label><br>
+				<label>Название товара<br><input type="text" name="name" value="matrioshka" required></label><br>
 				<label>Описание товара<br><textarea name="description" cols="60" >matrioshka</textarea></label><br>
 				<label>Категория<br>
 					<select name="category_id">
@@ -50,7 +50,7 @@ function add_form () {
 						    ?>
 					</select>
 				</label><br>
-				<label>Цена<br><input type="number" name="cost" value="999"></label><br><br>
+				<label>Цена<br><input type="number" name="cost" value="999" required></label><br><br>
 				<input type="submit" value="OK">
 
 			</fieldset>
