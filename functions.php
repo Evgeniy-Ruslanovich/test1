@@ -38,17 +38,18 @@ function add_form () {
 		<form action="ajax_update.php" method="post">
 			<fieldset>
 				<label>id<br><input type="number" name="id"></label><br>
-				<label>Название товара<br><input type="text" name="name"></label><br>
-				<label>Описание товара<br><textarea name="description"></textarea></label><br>
+				<label>Название товара<br><input type="text" name="name" value="matrioshka"></label><br>
+				<label>Описание товара<br><textarea name="description" >matrioshka</textarea></label><br>
 				<label>Категория<br>
-					<select name="category">
+					<select name="category_id">
 						    <?php 
 						    foreach ($categoryArray as  $row) {
 						    	echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
 						    	}
 						    ?>
 					</select>
-				</label><br><br>
+				</label><br>
+				<label>Цена<br><input type="number" name="cost" value="999"></label><br><br>
 				<input type="submit" value="OK">
 
 			</fieldset>
