@@ -22,9 +22,47 @@ $table_html = build_table_html ($tableArray);
 
 //var_dump($table_html);
 
-echo $table_html;
 
-add_form ();
+?>
+<!doctype html>
+<html>
+	<head>
+		<title><?= $title ?></title>
+		<meta charset="UTF8">
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+		<link rel="stylesheet" type="text/css" href="css/style1.css">
+	</head>
+	<body>
+	<div class="main">
+		<div class="header">
+			<div class="header-center">
+				<h1>Cписок товаров</h1>
+			</div>
+		</div>
+		<div class="content">
+			<?php 
+
+			echo $table_html;
+
+			add_form ();
+
+			?>
+			<button class="green">Добавить товар</button>
+		</div>
+
+	</div>
+	<div class="prefooter">
+	</div>
+	<div class="footer">
+			<div class="footer-center">
+				Это футер
+			</div>
+	</div>
+	<script type="text/javascript" src="script.js"></script>
+	</body>
+</html>
+<?php
+
 /*
 $route = "list";
 if (isset($_GET['photo'])) {
