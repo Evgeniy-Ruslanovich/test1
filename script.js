@@ -19,6 +19,7 @@ function callEditWindow(event) {
     var ajaxUpdateButton = document.getElementById('sendajaxupdate'); //навешиваем действие на кнопку(т.к. действие может быть и другое
     ajaxUpdateButton.onclick = updateAjax;
 	editWindow.classList.remove('hidden'); //показываем окно редактирования
+    deleteButton.classList.remove('hidden');
 }
 
 /*Закрывает окно редактирования при щелчке на крестике*/
@@ -137,6 +138,7 @@ closeButton.onclick = function () {
 /*CREATE*/
 	var createButton = document.getElementById('createbutton');
 	createButton.onclick = prepairForm;
+//createButton.onclick = addTableRow;
 
     function createAjax (){
 
@@ -155,6 +157,8 @@ closeButton.onclick = function () {
                 getFormValues(form);
                 productData.Id = response.lastId;//получили из базы ID последнего добавленного товара
                 console.log(productData);
+                addTableRow();
+                editWindow.classList.add('hidden');//прячем окно, чтобы не было мысли. что можно сразу отредактировать товар. Вместо редактироваия добавится новый
                 //setTableValues(currentTableRow);
                 //надо бы обнулить окошко и закрыть его на фиг
             }
@@ -166,7 +170,7 @@ closeButton.onclick = function () {
 
     /*функция открывает форму, очищает поля, и устанавливает action*/
 	function prepairForm(){
-
+        deleteButton.classList.add('hidden');
         //var form = document.forms.updateform;//получаем ссылку на форму
 		//обнуляем все поля формы
         form.setAttribute('action', 'ajax_create.php'); //поставим другой адресный файл
@@ -183,8 +187,21 @@ closeButton.onclick = function () {
 	}
 
 	function addTableRow() {
-        var newRow = document.createElement('tr');
-        newRow.innerHTML = '<th class=\'id\'></th><td class=\'name\'></td><td class=\'description\'></td><td class=\'category\'>'
+        var newRow = document.createElement('tr');//Создаем строку и наполняем ее ячейками
+        newRow.innerHTML = '<th class=\'id\'></th><td class=\'name\'></td><td class=\'description\'></td><td class=\'category\'></td><td class=\'cost\'></td><td class =\"editbutton\" onclick=\"callEditWindow();\"><b>*</b></td>';
+        document.getElementsByTagName('tbody')[0].appendChild(newRow);
+        currentTableRow = newRow;
+        setTableValues(currentTableRow);
     }
 /*END CREATE*/
 
+/*DELETE*/
+deleteButton.onclick = removeTableRow;
+
+
+function removeTableRow() {
+    currentTableRow.parentNode.removeChild(currentTableRow);
+    currentTableRow = null;
+}
+
+/*END DELETE*/
