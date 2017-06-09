@@ -36,7 +36,7 @@ function add_form () {
 	?>
 	<div class='form hidden' id="editwindow">
 		<div id="closebutton">X</div>
-		<form action="ajax_update.php" method="post">
+		<form action="ajax_update.php" method="post" name="updateform">
 			<fieldset>
 				<input type="hidden" ></input>
 				<label>id<br><input type="number" name="id" readonly></label><br>

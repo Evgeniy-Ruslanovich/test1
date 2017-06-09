@@ -52,9 +52,15 @@ function setFormValues (form) {
 			form.getElementsByTagName('option')[i].removeAttribute('selected'); //нужно снимать атрибут, иначе остается выбранной та категория, которая идет выше в списке, даже если ты уже перешел к карточке другого товара
 		}
 	}
+	console.log(formData);
 }
 
 /*ajax*/
+/*получаем данные формы*/
+var formData = new FormData(document.forms.updateform);
+
+//console.log(formData);
+
 var ajaxUpdateButton = document.getElementById('sendajaxupdate');
 ajaxUpdateButton.onclick = sendAjax;
 //function sendAjax (){ alert('button');}
@@ -62,7 +68,8 @@ ajaxUpdateButton.onclick = sendAjax;
 function sendAjax (){
 	var xhr = new XMLHttpRequest();
 	xhr.open('post', 'ajax_update.php', false);
-	xhr.send();
+	var formData = new FormData(document.forms.updateform);
+	xhr.send(formData);
 	if (xhr.status != 200) {
 	  // обработать ошибку
 	  alert( 'Произошла ошибка, выполнение операции невозможно. ' . xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
