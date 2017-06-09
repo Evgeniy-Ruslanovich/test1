@@ -7,7 +7,7 @@ function callEditWindow(event) {
 	event = event || window.event;
   	var target = event.currentTarget; //находим элемент, по которому кликнули
 	console.log(target);
-  	currentTableRow = target.parentElement; //находим родительский элемент - строку таблицы
+  	currentTableRow = target.parentElement; //находим родительский элемент - строку таблицы. Она нам еще пригодится
   	console.log(currentTableRow);
   	getTableValues (currentTableRow); //вызываем фукнцию, которая достанет данные из таблицы в объект
 	//console.log(editWindow);
@@ -33,15 +33,15 @@ function getTableValues (row){
 }
 
 function setTableValues (row){
-	productData.Id = row.cells[0].innerHTML;
+	row.cells[0].innerHTML = productData.Id;
 		console.log('productId: ' + productData.Id);
-	productData.name = row.cells[1].innerHTML;
+	row.cells[1].innerHTML = productData.name;
 		console.log('productName: ' + productData.name);
-	productData.description = row.cells[2].innerHTML;
+	row.cells[2].innerHTML = productData.description;
 		console.log('productDescription: ' + productData.description);
-	productData.categoryId = row.cells[3].innerHTML;
+	row.cells[3].innerHTML = productData.categoryId;
 		console.log('productCategory: ' + productData.categoryId);
-	productData.сost = row.cells[4].innerHTML;
+	row.cells[4].innerHTML = productData.сost;
 		console.log('productCost: ' + productData.сost);
 }
 
@@ -91,7 +91,8 @@ function sendAjax (){
 	} else {
 	  // вывести результат
 	  alert( xhr.responseText ); // responseText -- текст ответа.
-	  collectNewData ();
+	  collectNewData (form);
+	  setTableValues(currentTableRow);
 	}
 
 }

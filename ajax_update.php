@@ -15,8 +15,8 @@ require_once('config.php');
 	`cost` = '" . $_POST['cost'] . "' 
 	WHERE `products`.`id` = " . $_POST['id'];
 
-	echo $sql  . ' \n\r';
-	var_dump($_POST);
+	//echo $sql  . ' \n\r';
+	//var_dump($_POST);
 	$query = mysqli_query($link, $sql);
 
 	if ($query) {

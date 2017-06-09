@@ -52,7 +52,7 @@ function add_form () {
 					</select>
 				</label><br>
 				<label>Цена<br><input type="number" name="cost" step="0.01" required></label><br><br>
-				<input type="submit" value="отправить на php-файл">
+				<input type="submit" value="отправить через php">
 				<button id='sendajaxupdate' type="button">отправить аджакс</button>
 				<button id='deleteproduct' type="button">удалить товар</button>
 
