@@ -1,14 +1,15 @@
 var editWindow = document.getElementById('editwindow');
 var closeButton = document.getElementById('closebutton');
 var productData = {};
+var currentTableRow;
 
 function callEditWindow(event) {
 	event = event || window.event;
   	var target = event.currentTarget; //находим элемент, по которому кликнули
 	console.log(target);
-  	var parentRow = target.parentElement; //находим родительский элемент - строку таблицы
-  	console.log(parentRow);
-  	getTableValues (parentRow); //вызываем фукнцию, которая достанет данные из таблицы в объект
+  	currentTableRow = target.parentElement; //находим родительский элемент - строку таблицы
+  	console.log(currentTableRow);
+  	getTableValues (currentTableRow); //вызываем фукнцию, которая достанет данные из таблицы в объект
 	//console.log(editWindow);
 	setFormValues (editWindow);
 	editWindow.classList.remove('hidden'); //показываем окно редактирования
@@ -19,6 +20,19 @@ closeButton.onclick = function () {
 }
 
 function getTableValues (row){
+	productData.Id = row.cells[0].innerHTML;
+		console.log('productId: ' + productData.Id);
+	productData.name = row.cells[1].innerHTML;
+		console.log('productName: ' + productData.name);
+	productData.description = row.cells[2].innerHTML;
+		console.log('productDescription: ' + productData.description);
+	productData.categoryId = row.cells[3].innerHTML;
+		console.log('productCategory: ' + productData.categoryId);
+	productData.сost = row.cells[4].innerHTML;
+		console.log('productCost: ' + productData.сost);
+}
+
+function setTableValues (row){
 	productData.Id = row.cells[0].innerHTML;
 		console.log('productId: ' + productData.Id);
 	productData.name = row.cells[1].innerHTML;
@@ -68,7 +82,8 @@ ajaxUpdateButton.onclick = sendAjax;
 function sendAjax (){
 	var xhr = new XMLHttpRequest();
 	xhr.open('post', 'ajax_update.php', false);
-	var formData = new FormData(document.forms.updateform);
+	var form = document.forms.updateform;
+	var formData = new FormData(form);
 	xhr.send(formData);
 	if (xhr.status != 200) {
 	  // обработать ошибку
@@ -76,5 +91,25 @@ function sendAjax (){
 	} else {
 	  // вывести результат
 	  alert( xhr.responseText ); // responseText -- текст ответа.
+	  collectNewData ();
 	}
+
+}
+
+/*теперь соберем новые данные, чтоб положить их в таблицу*/
+function collectNewData (form) {
+	form = document.forms.updateform;
+	console.log(form);
+	productData.Id = form.getElementsByTagName('input')[1].value;
+	productData.name = form.getElementsByTagName('input')[2].value;
+	productData.description = form.getElementsByTagName('textarea')[0].value;
+	
+	var selectedCatIndex = form.getElementsByTagName("select")[0].options.selectedIndex; //получаем индекс выбранной категории
+	console.log('selectedCatIndex: ' + selectedCatIndex);
+	productData.categoryId = form.getElementsByTagName("select")[0].options[selectedCatIndex].value; //устанавливаем значение categoryId в соответствии с выбранным option
+
+
+
+	productData.сost = form.getElementsByTagName('input')[3].value;
+	console.log(productData);
 }

@@ -38,7 +38,7 @@ function add_form () {
 		<div id="closebutton">X</div>
 		<form action="ajax_update.php" method="post" name="updateform">
 			<fieldset>
-				<input type="hidden" ></input>
+				<input type="hidden"></input>
 				<label>id<br><input type="number" name="id" readonly></label><br>
 				<label>Название товара<br><input type="text" name="name" required></label><br>
 				<label>Описание товара<br><textarea name="description" cols="60" >matrioshka</textarea></label><br>
