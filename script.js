@@ -123,6 +123,7 @@ closeButton.onclick = function () {
 		} else {
 		  // если ответ сервера ОК, работаем дальше
 		  alert( xhr.responseText ); // responseText -- текст ответа.
+
 		  if (xhr.responseText == 'Обновление данных прошло успешно') {
 			  getFormValues(form);
 			  setTableValues(currentTableRow);
@@ -136,12 +137,6 @@ closeButton.onclick = function () {
 	var createButton = document.getElementById('createbutton');
 	createButton.onclick = prepairForm;
 
-    function createNew(){
-        prepairForm();
-
-        createAjax ();
-    }
-
     function createAjax (){
 
         var xhr = new XMLHttpRequest();
@@ -153,16 +148,19 @@ closeButton.onclick = function () {
             alert( 'Произошла ошибка, выполнение операции невозможно. ' . xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
         } else {
             // если ответ сервера ОК, работаем дальше
-            alert( xhr.responseText ); // responseText -- текст ответа.
-            if (xhr.responseText == 'Обновление данных прошло успешно') {
+            var response = JSON.parse(xhr.responseText);
+            alert( response.message ); // responseText -- текст ответа.
+            if (response.message == "Создан новый товар") {
                 getFormValues(form);
+                productData.Id = response.lastId;//получили из базы ID последнего добавленного товара
                 console.log(productData);
                 //setTableValues(currentTableRow);
+                //надо бы обнулить окошко и закрыть его на фиг
             }
-            getFormValues(form);
+           // getFormValues(form);
             console.log(productData);
         }
-        form.getElementsByTagName('textarea')[0].value = '';
+        //form.getElementsByTagName('textarea')[0].value = '';
     }
 
     /*функция открывает форму, очищает поля, и устанавливает action*/
@@ -182,5 +180,9 @@ closeButton.onclick = function () {
         ajaxUpdateButton.onclick = createAjax;
         editWindow.classList.remove('hidden'); //показываем окно редактирования
 	}
+
+	function addTableRow() {
+        var newRow = document.createElement('tr');
+    }
 /*END CREATE*/
 
