@@ -1,5 +1,6 @@
 var editWindow = document.getElementById('editwindow');
 var closeButton = document.getElementById('closebutton');
+var deleteButton = document.getElementById('deleteproduct');
 var productData = {}; //в этом объекте хранятся данные товара, с которым сейчас идет работа, и которые могут быть перезаписаны и использованы много раз
 var currentTableRow; //нужно знать, с какой строкой таблицы мы сейчас работаетм, причем в глобальной випдимости, так как к ней обращаются фнукции из разных мест
 var form = document.forms.updateform;
@@ -183,6 +184,7 @@ closeButton.onclick = function () {
 
 	function addTableRow() {
         var newRow = document.createElement('tr');
+        newRow.innerHTML = '<th class=\'id\'></th><td class=\'name\'></td><td class=\'description\'></td><td class=\'category\'>'
     }
 /*END CREATE*/
 
