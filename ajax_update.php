@@ -16,10 +16,13 @@ require_once('config.php');
 	WHERE `products`.`id` = " . $_POST['id'];
 
 	//echo $sql  . '<br>';
-
+	//var_dump($_POST);
 	$query = mysqli_query($link, $sql);
 
 	if ($query) {
 		echo 'Обновление данных прошло успешно';
+	} else {
+		echo 'облом';
 	}
 	//var_dump($_POST);
+

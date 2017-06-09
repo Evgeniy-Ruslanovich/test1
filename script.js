@@ -20,25 +20,26 @@ closeButton.onclick = function () {
 
 function getTableValues (row){
 	productData.Id = row.cells[0].innerHTML;
-	console.log('productId: ' + productData.Id);
+		console.log('productId: ' + productData.Id);
 	productData.name = row.cells[1].innerHTML;
-	console.log('productName: ' + productData.name);
+		console.log('productName: ' + productData.name);
 	productData.description = row.cells[2].innerHTML;
-	console.log('productDescription: ' + productData.description);
+		console.log('productDescription: ' + productData.description);
 	productData.categoryId = row.cells[3].innerHTML;
-	console.log('productCategory: ' + productData.categoryId);
+		console.log('productCategory: ' + productData.categoryId);
 	productData.сost = row.cells[4].innerHTML;
-	console.log('productCost: ' + productData.сost);
+		console.log('productCost: ' + productData.сost);
 }
 
 /*Эта функция заполняет форму теми исходными данными, которые сейчас есть в таблице*/
 function setFormValues (form) {
 	form.getElementsByTagName('input')[0].value = productData.Id;
-	form.getElementsByTagName('input')[0].setAttribute('disabled', 'disabled');
+	form.getElementsByTagName('input')[1].value = productData.Id;
+	//form.getElementsByTagName('input')[2].setAttribute('disabled', 'disabled');
 
-	form.getElementsByTagName('input')[1].value = productData.name;
+	form.getElementsByTagName('input')[2].value = productData.name;
 	//console.log('productCost все таки: ' + productData.сost);
-	form.getElementsByTagName('input')[2].value = productData.сost;
+	form.getElementsByTagName('input')[3].value = productData.сost;
 	form.getElementsByTagName('textarea')[0].innerHTML = productData.description;
 	var categoeyCount = form.getElementsByTagName('option').length;
 	console.log('categoeyCount: ' + categoeyCount);
@@ -50,5 +51,23 @@ function setFormValues (form) {
 		} else {
 			form.getElementsByTagName('option')[i].removeAttribute('selected'); //нужно снимать атрибут, иначе остается выбранной та категория, которая идет выше в списке, даже если ты уже перешел к карточке другого товара
 		}
+	}
+}
+
+/*ajax*/
+var ajaxUpdateButton = document.getElementById('sendajaxupdate');
+ajaxUpdateButton.onclick = sendAjax;
+//function sendAjax (){ alert('button');}
+
+function sendAjax (){
+	var xhr = new XMLHttpRequest();
+	xhr.open('post', 'ajax_update.php', false);
+	xhr.send();
+	if (xhr.status != 200) {
+	  // обработать ошибку
+	  alert( 'Произошла ошибка, выполнение операции невозможно. ' . xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+	} else {
+	  // вывести результат
+	  alert( xhr.responseText ); // responseText -- текст ответа.
 	}
 }
