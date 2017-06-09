@@ -47,7 +47,7 @@ $table_html = build_table_html ($tableArray);
 			add_form ();
 
 			?>
-			<button class="green">Добавить товар</button>
+			<button class="green" id="createbutton">Добавить товар</button>
 		</div>
 
 	</div>
