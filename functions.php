@@ -4,7 +4,7 @@
  *
  */
 
-/*Функция возвращает ассоциативный массив с данными для постоения таблицы*/
+/*Функция возвращает ассоциативный массив с данными для построения таблицы*/
 function get_data () {
 	$link = mysqli_connect(SQL_HOST, DB_USER, DB_PASSW);
 	$data = mysqli_query($link, "select * from `shop`.`products`");
@@ -22,13 +22,14 @@ function build_table_html ($tableArray) {
 			'</td><td class=\'category\'>' . $row['category_id'] . //надо сделать джойн, чтоб мне в базе давалось имя категории, а не номер
 			'</td><td class=\'cost\'>' . $row['cost'] . '</td><td class ="editbutton" onclick="callEditWindow();"><b>*</b></td></tr>';
 	}
-	$table_html .= '</tbody></table>';//'приветмедвед <br>';
+	$table_html .= '</tbody></table>';
 	return $table_html;
 }
 
 /*функция генерирует HTML-код формы Вызов функции вставляет 
 Также происходит обрадение к базе данных, чтобы получить список катеорий товаров*/
 function add_form () {
+    //запрашиваем список категорий
 	$link = mysqli_connect(SQL_HOST, DB_USER, DB_PASSW);
 	$data = mysqli_query($link, "select * from `shop`.`category`");
 	$categoryArray = mysqli_fetch_all($data, MYSQL_ASSOC);

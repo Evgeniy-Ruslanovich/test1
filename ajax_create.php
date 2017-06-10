@@ -11,13 +11,10 @@ require_once('config.php');
     $description = addslashes($_POST["description"]);
     $category_id = addslashes($_POST["category_id"]);
     $cost = addslashes($_POST["cost"]);
-	
-	/*$sql = "insert INTO `shop`.`products` (`name`,`description`, `category_id`, `cost`)
-            VALUES ('" . $_POST["name"] . "' , '" . $_POST['description'] . "' , '" . $_POST['category_id'] . "' , '" . $_POST['cost'] . "')";*/
+
     $sql = "insert INTO `shop`.`products` (`name`,`description`, `category_id`, `cost`) 
             VALUES ('" . $name . "' , '" . $description . "' , '" . $category_id . "' , '" . $cost . "')";
 
-	//var_dump($_POST);
 	$query = mysqli_query($link, $sql);
     $last_id = mysqli_insert_id ( $link);
 
@@ -26,5 +23,3 @@ require_once('config.php');
 	} else {
 		echo '{"message":"облом"}';
 	}
-	//var_dump($_POST);
-
