@@ -117,7 +117,7 @@ closeButton.onclick = function () {
         console.log(productData);
 		var xhr = new XMLHttpRequest();
 		xhr.open('post', 'ajax_update.php', false);
-		var form = document.forms.updateform; //получем ссылку на форму
+		//var form = document.forms.updateform; //получем ссылку на форму
 		var formData = new FormData(form); //загружаем данные формы в объект. Не все браузеры поддерживают
 		xhr.send(formData);
 		if (xhr.status != 200) {
@@ -144,26 +144,26 @@ closeButton.onclick = function () {
 
         var xhr = new XMLHttpRequest();
         xhr.open('post', 'ajax_create.php', false);
-        var form = document.forms.updateform; //получем ссылку на форму
+        //var form = document.forms.updateform; //получем ссылку на форму
         var formData = new FormData(form); //загружаем данные формы в объект. Не все браузеры поддерживают
         xhr.send(formData);
         if (xhr.status != 200) {
             alert( 'Произошла ошибка, выполнение операции невозможно. ' . xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
         } else {
             // если ответ сервера ОК, работаем дальше
-            var response = JSON.parse(xhr.responseText);
+            var response = JSON.parse(xhr.responseText); //сервер передает два параметра в виде джейсона - айдишник созданого товара, и текст с сообщением
             alert( response.message ); // responseText -- текст ответа.
             if (response.message == "Создан новый товар") {
                 getFormValues(form);
                 productData.Id = response.lastId;//получили из базы ID последнего добавленного товара
-                console.log(productData);
+                //console.log(productData);
                 addTableRow();
                 editWindow.classList.add('hidden');//прячем окно, чтобы не было мысли. что можно сразу отредактировать товар. Вместо редактироваия добавится новый
                 //setTableValues(currentTableRow);
                 //надо бы обнулить окошко и закрыть его на фиг
             }
            // getFormValues(form);
-            console.log(productData);
+            //console.log(productData);
         }
         //form.getElementsByTagName('textarea')[0].value = '';
     }
@@ -185,7 +185,7 @@ closeButton.onclick = function () {
         ajaxUpdateButton.onclick = createAjax;
         editWindow.classList.remove('hidden'); //показываем окно редактирования
 	}
-
+    /*добавляем новую строку в таблицу, с параметрами только что созданного товара. Параметры берутся из объекта productData*/
 	function addTableRow() {
         var newRow = document.createElement('tr');//Создаем строку и наполняем ее ячейками
         newRow.innerHTML = '<th class=\'id\'></th><td class=\'name\'></td><td class=\'description\'></td><td class=\'category\'></td><td class=\'cost\'></td><td class =\"editbutton\" onclick=\"callEditWindow();\"><b>*</b></td>';
@@ -196,12 +196,41 @@ closeButton.onclick = function () {
 /*END CREATE*/
 
 /*DELETE*/
-deleteButton.onclick = removeTableRow;
+deleteButton.onclick = deleteAjax;
 
 
 function removeTableRow() {
+
     currentTableRow.parentNode.removeChild(currentTableRow);
-    currentTableRow = null;
+    editWindow.classList.add('hidden');
+    currentTableRow = null;//сбросим указатель таблицы, во избежание возможных ошибок, так как эта строка уже не существует
+}
+function deleteAjax (){
+    form.setAttribute('action', 'ajax_delete.php');
+    var xhr = new XMLHttpRequest();
+    xhr.open('post', 'ajax_delete.php', false);
+    //var form = document.forms.updateform; //получем ссылку на форму
+    var formData = new FormData(form); //загружаем данные формы в объект. Не все браузеры поддерживают
+    xhr.send(formData);
+    if (xhr.status != 200) {
+        alert( 'Произошла ошибка, выполнение операции невозможно. ' . xhr.status + ': ' + xhr.statusText );
+    } else {
+        // если ответ сервера ОК, работаем дальше
+        alert( xhr.responseText ); // responseText -- текст ответа.
+        if (xhr.responseText == "Удаление товара данных прошло успешно") {
+            //getFormValues(form);
+            //productData.Id = response.lastId;//получили из базы ID последнего добавленного товара
+            //console.log(productData);
+            //addTableRow();
+            removeTableRow();
+            editWindow.classList.add('hidden');//прячем окно, чтобы не было мысли. что можно сразу отредактировать товар. Вместо редактироваия добавится новый
+            //setTableValues(currentTableRow);
+            //надо бы обнулить окошко и закрыть его на фиг
+        }
+        // getFormValues(form);
+        console.log(productData);
+    }
+    //form.getElementsByTagName('textarea')[0].value = '';
 }
 
 /*END DELETE*/
