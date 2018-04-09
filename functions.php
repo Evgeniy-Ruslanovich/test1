@@ -5,12 +5,25 @@
  */
 
 /*Функция возвращает ассоциативный массив с данными для построения таблицы*/
+/* //вариант с mysqli_fetch_all
 function get_data () {
 	$link = mysqli_connect(SQL_HOST, DB_USER, DB_PASSW);
 	$data = mysqli_query($link, "select * from `shop`.`products`");
 	$tableArray = mysqli_fetch_all($data, MYSQL_ASSOC);
 	return $tableArray;
 }
+*/
+//вариант с циклом и fetch_assoc
+function get_data (){
+	$link = mysqli_connect(SQL_HOST, DB_USER, DB_PASSW);
+	$data = mysqli_query($link, "select * from `shop`.`products`");
+	$tableArray = array();
+	while ($row = mysqli_fetch_assoc($data)) {
+	array_push($tableArray, $row);
+	}
+	return $tableArray;
+}
+
 
 function build_table_html ($tableArray) {
 	$table_html = '<table><tbody><thead><tr><td class=\' id\'>id</td><td class=\'name\'>Наименование</td><td>Описание</td><td>Категория</td><td>Цена</td><td></td></tr></thead>';//'приветмедвед <br>';
@@ -32,7 +45,12 @@ function add_form () {
     //запрашиваем список категорий
 	$link = mysqli_connect(SQL_HOST, DB_USER, DB_PASSW);
 	$data = mysqli_query($link, "select * from `shop`.`category`");
-	$categoryArray = mysqli_fetch_all($data, MYSQL_ASSOC);
+	//$categoryArray = mysqli_fetch_all($data, MYSQL_ASSOC);
+	$categoryArray = array();
+	while ($row = mysqli_fetch_assoc($data)) {
+	array_push($categoryArray, $row);
+	} //этот цикл на случай, если не поддерживается fetch_all
+
 	//var_dump($categoryArray);
 	?>
 	<div class='form hidden' id="editwindow">
